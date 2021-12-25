@@ -7,6 +7,7 @@ public class BatalhaNavalApplication {
         ImpressoraTabuleiro.imprimirMsgInicial();
 
         int[][] tabuleiro = new int[10][10];
+        boolean isGameOver = false;
         ImpressoraTabuleiro.imprimirTabuleiro(tabuleiro);
     }
 }
