@@ -25,7 +25,7 @@ public class BatalhaNavalApplication {
         ImpressoraTabuleiro.inicializaTabuleiro(tabuleiro);
 
         posicionarSubmarinos(submarinos);
-        System.out.println("Submarinos posicionados com sucesso!2");
+        System.out.println("Submarinos posicionados com sucesso!");
 
     }
 
