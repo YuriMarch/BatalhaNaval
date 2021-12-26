@@ -17,7 +17,7 @@ public class ImpressoraTabuleiro {
     System.out.println("---------------------------------------------");
     for (int i = 0; i < tabuleiro.length; i++) {
       // Troquei o eixo do tabuleiro pra botar os numeros dentro
-      // do for loop. Consegui mais facil assim.
+      // do for loop. Consegui mais facil assim...
 
       System.out.printf("| %s |", i);
       for (int j = 0; j < tabuleiro[i].length; j++) {
