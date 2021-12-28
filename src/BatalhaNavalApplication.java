@@ -1,7 +1,5 @@
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.function.ToDoubleBiFunction;
 
 import letscode.impressora.ImpressoraTabuleiro;
 
@@ -22,14 +20,14 @@ public class BatalhaNavalApplication {
         int COORDENADAS_SUBMARINOS = 2;
         int[][] submarinos = new int[NUMERO_SUBMARINOS][COORDENADAS_SUBMARINOS];
 
-        ImpressoraTabuleiro.inicializaTabuleiro(tabuleiro);
+        ImpressoraTabuleiro.inicializarTabuleiro(tabuleiro);
 
         posicionarSubmarinos(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
 
     }
 
-    public static void posicionarSubmarinos(int[][] submarinos) {
+    public static int[][] posicionarSubmarinos(int[][] submarinos) {
         int NUMERO_LINHAS = 10;
         int NUMERO_COLUNAS = 10;
         Random numeroAleatorio = new Random();
@@ -40,7 +38,7 @@ public class BatalhaNavalApplication {
 
             // Metodo de verificar se ja existe um submarino na posicao. Se houver, uma nova
             // posicao e escolhida. Ha ainda a possibilidade de um submarino colidir com
-            // outro. Mas e baixa pois so tem 10 submarinos.
+            // outro. Mas e baixa po is so tem 10 submarinos.
             for (int i = 0; i < submarinos.length; i++) {
                 if (i != numeroSubmarino) {
                     if (submarinos[numeroSubmarino][0] == submarinos[i][0]
@@ -56,6 +54,7 @@ public class BatalhaNavalApplication {
                             + " e coluna "
                             + submarinos[numeroSubmarino][1]);
         }
+        return submarinos;
     }
 
     // TODO: testar e implementar esta funcao
@@ -67,5 +66,17 @@ public class BatalhaNavalApplication {
 
         System.out.println("Digite a coluna do tiro: ");
         tiro[1] = scanner.nextInt();
+    }
+
+    // TODO: testar e implementar esta funcao
+    public static boolean verificarTiro(int[] tiro, int[][] submarinos) {
+        for (int submarino = 0; submarino < submarinos.length; submarino++) {
+            if (tiro[0] == submarinos[submarino][0] && tiro[1] == submarinos[submarino][1]) {
+                System.out.println("Você acertou o tiro!");
+                return true;
+            }
+        }
+        System.out.println("Você errou o tiro!");
+        return false;
     }
 }

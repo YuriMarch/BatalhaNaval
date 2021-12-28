@@ -9,20 +9,20 @@ public class ImpressoraTabuleiro {
     System.out.println();
   }
 
-  public static void inicializaTabuleiro(int[][] tabuleiro) {
+  public static void inicializarTabuleiro(int[][] tabuleiro) {
     System.out.println("---------------------------------------------");
     System.out.println("                 JOGADOR 1                ");
     System.out.println("---------------------------------------------");
     System.out.println("|   | A | B | C | D | E | F | G | H | I | J |");
     System.out.println("---------------------------------------------");
-    for (int i = 0; i < tabuleiro.length; i++) {
+    for (int linha = 0; linha < tabuleiro.length; linha++) {
       // Troquei o eixo do tabuleiro pra botar os numeros dentro
       // do for loop. Consegui mais facil assim...
 
-      System.out.printf("| %s |", i);
-      for (int j = 0; j < tabuleiro[i].length; j++) {
+      System.out.printf("| %s |", linha);
+      for (int coluna = 0; coluna < tabuleiro[linha].length; coluna++) {
         System.out.print("   |");
-        tabuleiro[i][j] = 0;
+        tabuleiro[linha][coluna] = 0;
       }
       System.out.println();
       System.out.println("---------------------------------------------");
