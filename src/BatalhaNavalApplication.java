@@ -7,7 +7,7 @@ public class BatalhaNavalApplication {
 
     public final String tiroCerto = "*";
     public final String tiroErrado = "-";
-    public boolean isGameOver = false;
+
     public static int[][] tabuleiro = new int[10][10];
 
     public static void main(String[] args) {
@@ -15,6 +15,7 @@ public class BatalhaNavalApplication {
 
         ImpressoraTabuleiro.imprimirMsgInicial();
 
+        boolean isGameOver = false;
         int jogadorAtual = 1;
         int NUMERO_SUBMARINOS = 10;
         int COORDENADAS_SUBMARINOS = 2;
@@ -25,6 +26,10 @@ public class BatalhaNavalApplication {
         posicionarSubmarinos(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
 
+        // Teste das funcoes verificarTiro e darTiro
+        do {
+            verificarTiro(darTiro(), submarinos);
+        } while (isGameOver == false);
     }
 
     public static int[][] posicionarSubmarinos(int[][] submarinos) {
@@ -57,8 +62,8 @@ public class BatalhaNavalApplication {
         return submarinos;
     }
 
-    // TODO: testar e implementar esta funcao
-    public static void darTiro(int[] tiro) {
+    public static int[] darTiro() {
+        int[] tiro = new int[2];
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Digite a linha do tiro: ");
@@ -66,9 +71,10 @@ public class BatalhaNavalApplication {
 
         System.out.println("Digite a coluna do tiro: ");
         tiro[1] = scanner.nextInt();
+
+        return tiro;
     }
 
-    // TODO: testar e implementar esta funcao
     public static boolean verificarTiro(int[] tiro, int[][] submarinos) {
         for (int submarino = 0; submarino < submarinos.length; submarino++) {
             if (tiro[0] == submarinos[submarino][0] && tiro[1] == submarinos[submarino][1]) {
