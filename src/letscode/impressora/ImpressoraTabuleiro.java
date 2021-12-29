@@ -22,7 +22,7 @@ public class ImpressoraTabuleiro {
       System.out.printf("| %s |", linha);
       for (int coluna = 0; coluna < tabuleiro[linha].length; coluna++) {
         System.out.print("   |");
-        tabuleiro[linha][coluna] = 0;
+        // tabuleiro[linha][coluna] = 0;
       }
       System.out.println();
       System.out.println("---------------------------------------------");

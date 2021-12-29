@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -5,8 +6,8 @@ import letscode.impressora.ImpressoraTabuleiro;
 
 public class BatalhaNavalApplication {
 
-    public final String tiroCerto = "*";
-    public final String tiroErrado = "-";
+    public final static char TIRO_CERTO = '*';
+    public final static char TIRO_ERRADO = '-';
 
     public static int[][] tabuleiro = new int[10][10];
 
@@ -16,20 +17,31 @@ public class BatalhaNavalApplication {
         ImpressoraTabuleiro.imprimirMsgInicial();
 
         boolean isGameOver = false;
+        int[] tiro = new int[2];
         int jogadorAtual = 1;
         int NUMERO_SUBMARINOS = 10;
         int COORDENADAS_SUBMARINOS = 2;
         int[][] submarinos = new int[NUMERO_SUBMARINOS][COORDENADAS_SUBMARINOS];
 
-        ImpressoraTabuleiro.inicializarTabuleiro(tabuleiro);
+        inicializaTabuleiro(tabuleiro);
+        mostrarTabuleiro(tabuleiro);
+        // ImpressoraTabuleiro.inicializarTabuleiro(tabuleiro);
 
         posicionarSubmarinos(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
 
+        for (int i = 0; i < 3; i++) {
+            mostrarTabuleiro(tabuleiro);
+            darTiro(tiro);
+            verificarTiro(tiro, submarinos);
+            alterarTabuleiro(tiro, submarinos, tabuleiro);
+        }
+
         // Teste das funcoes verificarTiro e darTiro
-        do {
-            verificarTiro(darTiro(), submarinos);
-        } while (isGameOver == false);
+        // do {
+        // verificarTiro(darTiro(), submarinos);
+        // atualizarTabuleiro(tabuleiro, submarinos);
+        // } while (isGameOver == false);
     }
 
     public static int[][] posicionarSubmarinos(int[][] submarinos) {
@@ -62,8 +74,7 @@ public class BatalhaNavalApplication {
         return submarinos;
     }
 
-    public static int[] darTiro() {
-        int[] tiro = new int[2];
+    public static void darTiro(int[] tiro) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Digite a linha do tiro: ");
@@ -71,18 +82,68 @@ public class BatalhaNavalApplication {
 
         System.out.println("Digite a coluna do tiro: ");
         tiro[1] = scanner.nextInt();
-
-        return tiro;
+        System.out.println("Tiro disparado!");
     }
 
     public static boolean verificarTiro(int[] tiro, int[][] submarinos) {
         for (int submarino = 0; submarino < submarinos.length; submarino++) {
             if (tiro[0] == submarinos[submarino][0] && tiro[1] == submarinos[submarino][1]) {
-                System.out.println("Você acertou o tiro!");
+                System.out.printf("Você acertou o tiro nas coordenadas (%d, %d)!\n", tiro[0], tiro[1]);
                 return true;
             }
         }
-        System.out.println("Você errou o tiro!");
+        System.out.printf("Você errou o tiro nas coordenadas (%d, %d)!\n", tiro[0], tiro[1]);
         return false;
     }
+
+    public static void alterarTabuleiro(int[] tiro, int[][] submarinos, int[][] tabuleiro) {
+        if (verificarTiro(tiro, submarinos) == true) {
+            tabuleiro[tiro[0]][tiro[1]] = 1;
+        } else {
+            tabuleiro[tiro[0]][tiro[1]] = -1;
+        }
+    }
+
+    public static void atualizarTabuleiro(int[][] tabuleiro, int[][] submarinos) {
+        for (int linha = 0; linha < tabuleiro.length; linha++) {
+            for (int coluna = 0; coluna < tabuleiro[linha].length; coluna++) {
+                if (tabuleiro[linha][coluna] == 0) {
+                    System.out.print("-");
+                } else if (tabuleiro[linha][coluna] == 1) {
+                    System.out.print("*");
+                } else if (tabuleiro[linha][coluna] == -1) {
+                    System.out.print("X");
+                }
+            }
+        }
+    }
+
+    public static void inicializaTabuleiro(int[][] tabuleiro) {
+        for (int linha = 0; linha < tabuleiro.length; linha++)
+            for (int coluna = 0; coluna < tabuleiro.length; coluna++)
+                tabuleiro[linha][coluna] = 0;
+    }
+
+    public static void mostrarTabuleiro(int[][] tabuleiro) {
+        System.out.println("---------------------------------------------");
+        System.out.println("                 JOGADOR 1                ");
+        System.out.println("---------------------------------------------");
+        System.out.println("|   | A | B | C | D | E | F | G | H | I | J |");
+        System.out.println("---------------------------------------------");
+        for (int linha = 0; linha < tabuleiro.length; linha++) {
+            System.out.printf("| %s |", linha);
+            for (int coluna = 0; coluna < tabuleiro[linha].length; coluna++) {
+                if (tabuleiro[linha][coluna] == 0) {
+                    System.out.print("   |");
+                } else if (tabuleiro[linha][coluna] == 1) {
+                    System.out.print(" * |");
+                } else if (tabuleiro[linha][coluna] == -1) {
+                    System.out.print(" - |");
+                }
+            }
+            System.out.println();
+            System.out.println("---------------------------------------------");
+        }
+    }
+
 }
