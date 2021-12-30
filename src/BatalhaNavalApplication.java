@@ -15,8 +15,6 @@ public class BatalhaNavalApplication {
     public static void main(String[] args) {
         System.out.println("Jogo batalha naval esta sendo iniciado...");
 
-        ImpressoraTabuleiro.imprimirMsgInicial();
-
         boolean acabouJogo = false;
         int tentativas = 0;
         int acertos = 0;
@@ -27,17 +25,19 @@ public class BatalhaNavalApplication {
         int[][] submarinos = new int[NUMERO_SUBMARINOS][COORDENADAS_SUBMARINOS];
 
         inicializaTabuleiro(tabuleiro);
+        ImpressoraTabuleiro.imprimirMsgInicial();
         posicionarSubmarinos(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
         ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
 
-        // Teste das funcoes mostrarTabuleiro, darTiro, verificarTiro e alterarTabuleiro
-        for (int i = 0; i < 3; i++) {
+        // Loop principal do jogo. Nao acaba nunca pois o contador de acertos nao esta
+        // funcionando
+        do {
             darTiro(tiro, tentativas);
             verificarTiro(tiro, submarinos, acertos, erros);
             alterarTabuleiro(tiro, submarinos, tabuleiro, acertos, erros);
             ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
-        }
+        } while (acertos < NUMERO_SUBMARINOS);
     }
 
     public static int[][] posicionarSubmarinos(int[][] submarinos) {
@@ -84,9 +84,10 @@ public class BatalhaNavalApplication {
     }
 
     // TODO: O if das funcoes imprimirMsgAcertos e imprimirMsgErros nao esta
-    // funcionando direito
+    // funcionando direito. Contador de erros e acertos nao estao functionando
 
     public static void imprimirMsgAcertos(int[] tiro, int acertos) {
+        acertos++;
         System.out.printf("Você acertou o tiro nas coordenadas (%d, %d)!\n", tiro[0], tiro[1]);
         if (acertos == 1) {
             System.out.printf("Você acertou %d submarino!\n", acertos);
@@ -96,6 +97,7 @@ public class BatalhaNavalApplication {
     }
 
     public static void imprimirMsgErros(int[] tiro, int erros) {
+        erros++;
         System.out.printf("Você errou o tiro nas coordenadas (%d, %d)!\n", tiro[0], tiro[1]);
         if (erros == 1) {
             System.out.printf("Você errou %d vez!\n", erros);
@@ -107,12 +109,10 @@ public class BatalhaNavalApplication {
     public static boolean verificarTiro(int[] tiro, int[][] submarinos, int acertos, int erros) {
         for (int submarino = 0; submarino < submarinos.length; submarino++) {
             if (tiro[0] == submarinos[submarino][0] && tiro[1] == submarinos[submarino][1]) {
-                acertos++;
                 imprimirMsgAcertos(tiro, acertos);
                 return true;
             }
         }
-        erros++;
         imprimirMsgErros(tiro, erros);
         return false;
     }
