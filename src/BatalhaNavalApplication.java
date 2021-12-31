@@ -5,9 +5,6 @@ import letscode.impressora.ImpressoraTabuleiro;
 
 public class BatalhaNavalApplication {
 
-    public final static char TIRO_CERTO = '*';
-    public final static char TIRO_ERRADO = '-';
-    public final static char AGUA = ' ';
     public final static int NUMERO_LINHAS = 10;
     public final static int NUMERO_COLUNAS = 10;
     public static int[][] tabuleiro = new int[NUMERO_LINHAS][NUMERO_COLUNAS];
@@ -69,54 +66,17 @@ public class BatalhaNavalApplication {
         return submarinos;
     }
 
-    // TODO: proteger a funcao de erros:
-    // - int entre 0 e 9 --> FEITO!
-    // - nao pode ser string --> FEITO!
-    // - 2 loops para a solucao do problema acima esta estranho...
     public static void darTiro(int[] tiro, int tentativas) {
-        String strInput;
-        boolean inputLinhaValido = false;
-        boolean inputColunaValido = false;
+        LeitorInput leitorInput = new LeitorInput();
+        String inputLinhaMsg = "Digite a linha do tiro (0 a " + (NUMERO_LINHAS - 1) + "): ";
+        String inputColunaMsg = "Digite a coluna do tiro (0 a " + (NUMERO_COLUNAS - 1) + "): ";
+        String errorMsg = "Entrada inválida. ";
 
-        Scanner scanner = new Scanner(System.in);
+        tiro[0] = leitorInput.lerInteiro(inputLinhaMsg, errorMsg, 0, NUMERO_LINHAS - 1);
+        tiro[1] = leitorInput.lerInteiro(inputColunaMsg, errorMsg, 0, NUMERO_COLUNAS - 1);
 
-        // Loop para verificar se o input do usuario e valido
-        while (inputLinhaValido == false) {
-            System.out.printf("Digite a linha do tiro (0 a %s): ", NUMERO_LINHAS - 1);
-            strInput = scanner.nextLine();
-            try {
-                tiro[0] = Integer.parseInt(strInput);
-                if (tiro[0] >= 0 && tiro[0] < NUMERO_LINHAS) {
-                    inputLinhaValido = true;
-                } else {
-                    System.out.println("Linha fora do intervalo!");
-                }
-            } catch (NumberFormatException e) {
-                System.out.print("Entrada inválida. ");
-            }
-        }
-
-        while (inputColunaValido == false) {
-            System.out.printf("Digite a coluna do tiro (0 a %s): ", NUMERO_COLUNAS - 1);
-            strInput = scanner.nextLine();
-            try {
-                tiro[1] = Integer.parseInt(strInput);
-                if (tiro[1] >= 0 && tiro[1] < NUMERO_COLUNAS) {
-                    inputColunaValido = true;
-                } else {
-                    System.out.println("Coluna fora do intervalo!");
-                }
-            } catch (NumberFormatException e) {
-                System.out.print("Entrada inválida. ");
-            }
-        }
-        tentativas++;
+        tentativas++; // contador de tentativas nao esta funcionando
     }
-
-    // if (strInput.matches("[0-9]+")) {
-    // tiro[0] = Integer.parseInt(strInput);
-    // inputValido = true;
-    // }
 
     // TODO: O if das funcoes imprimirMsgAcertos e imprimirMsgErros nao esta
     // funcionando direito. Contador de erros e acertos nao estao functionando
