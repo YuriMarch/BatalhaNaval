@@ -2,12 +2,6 @@ import java.util.Scanner;
 
 public class LeitorInput {
 
-  private Scanner scanner;
-
-  LeitorInput() {
-    scanner = new Scanner(System.in);
-  }
-
   public int lerInteiro(String inputMsg, String errorMsg, int limiteMin, int limiteMax) {
     int numero = 0;
     String strInput;
