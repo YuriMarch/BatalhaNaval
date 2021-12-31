@@ -8,8 +8,9 @@ public class BatalhaNavalApplication {
     public final static char TIRO_CERTO = '*';
     public final static char TIRO_ERRADO = '-';
     public final static char AGUA = ' ';
-
-    public static int[][] tabuleiro = new int[10][10];
+    public final static int NUMERO_LINHAS = 10;
+    public final static int NUMERO_COLUNAS = 10;
+    public static int[][] tabuleiro = new int[NUMERO_LINHAS][NUMERO_COLUNAS];
 
     public static void main(String[] args) {
         System.out.println("Jogo batalha naval esta sendo iniciado...");
@@ -40,8 +41,6 @@ public class BatalhaNavalApplication {
     }
 
     public static int[][] posicionarSubmarinos(int[][] submarinos) {
-        int NUMERO_LINHAS = 10;
-        int NUMERO_COLUNAS = 10;
         Random numeroAleatorio = new Random();
 
         for (int numeroSubmarino = 0; numeroSubmarino < submarinos.length; numeroSubmarino++) {
@@ -70,17 +69,46 @@ public class BatalhaNavalApplication {
         return submarinos;
     }
 
+    // TODO: proteger a funcao de erros:
+    // - int entre 0 e 9
+    // - nao pode ser string --> FEITO!
+    // - 2 loops para a solucao do problema acima esta estranho...
     public static void darTiro(int[] tiro, int tentativas) {
+        String strInput;
+        boolean inputLinhaValido = false;
+        boolean inputColunaValido = false;
+
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Digite a linha do tiro: ");
-        tiro[0] = scanner.nextInt();
+        // Loop para verificar se o input do usuario e valido
+        while (inputLinhaValido == false) {
+            System.out.printf("Digite a linha do tiro (0 a %s): ", NUMERO_LINHAS - 1);
+            strInput = scanner.nextLine();
+            try {
+                tiro[0] = Integer.parseInt(strInput);
+                inputLinhaValido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Digite um número inteiro.");
+            }
+        }
 
-        System.out.println("Digite a coluna do tiro: ");
-        tiro[1] = scanner.nextInt();
-        System.out.println("Tiro disparado!");
+        while (inputColunaValido == false) {
+            System.out.printf("Digite a coluna do tiro (0 a %s): ", NUMERO_COLUNAS - 1);
+            strInput = scanner.nextLine();
+            try {
+                tiro[1] = Integer.parseInt(strInput);
+                inputColunaValido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Digite um número inteiro.");
+            }
+        }
         tentativas++;
     }
+
+    // if (strInput.matches("[0-9]+")) {
+    // tiro[0] = Integer.parseInt(strInput);
+    // inputValido = true;
+    // }
 
     // TODO: O if das funcoes imprimirMsgAcertos e imprimirMsgErros nao esta
     // funcionando direito. Contador de erros e acertos nao estao functionando
