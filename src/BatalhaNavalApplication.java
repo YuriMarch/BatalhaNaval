@@ -70,7 +70,7 @@ public class BatalhaNavalApplication {
     }
 
     // TODO: proteger a funcao de erros:
-    // - int entre 0 e 9
+    // - int entre 0 e 9 --> FEITO!
     // - nao pode ser string --> FEITO!
     // - 2 loops para a solucao do problema acima esta estranho...
     public static void darTiro(int[] tiro, int tentativas) {
@@ -86,9 +86,13 @@ public class BatalhaNavalApplication {
             strInput = scanner.nextLine();
             try {
                 tiro[0] = Integer.parseInt(strInput);
-                inputLinhaValido = true;
+                if (tiro[0] >= 0 && tiro[0] < NUMERO_LINHAS) {
+                    inputLinhaValido = true;
+                } else {
+                    System.out.println("Linha fora do intervalo!");
+                }
             } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Digite um número inteiro.");
+                System.out.print("Entrada inválida. ");
             }
         }
 
@@ -97,9 +101,13 @@ public class BatalhaNavalApplication {
             strInput = scanner.nextLine();
             try {
                 tiro[1] = Integer.parseInt(strInput);
-                inputColunaValido = true;
+                if (tiro[1] >= 0 && tiro[1] < NUMERO_COLUNAS) {
+                    inputColunaValido = true;
+                } else {
+                    System.out.println("Coluna fora do intervalo!");
+                }
             } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Digite um número inteiro.");
+                System.out.print("Entrada inválida. ");
             }
         }
         tentativas++;
