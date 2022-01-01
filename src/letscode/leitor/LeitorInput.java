@@ -1,3 +1,5 @@
+package letscode.leitor;
+
 import java.util.Scanner;
 
 public class LeitorInput {

@@ -1,6 +1,7 @@
 import java.util.Random;
 
 import letscode.impressora.ImpressoraTabuleiro;
+import letscode.leitor.LeitorInput;
 
 public class BatalhaNavalApplication {
 
