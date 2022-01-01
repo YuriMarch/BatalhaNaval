@@ -10,7 +10,6 @@ public class ImpressoraTabuleiro {
 
   public static void imprimirMsgInicial() {
     System.out.println(MENSAGEM_INICIAL);
-    System.out.println();
   }
 
   public static void imprimirCabecalho() {

@@ -21,7 +21,7 @@ public class BatalhaNavalApplication {
         int COORDENADAS_SUBMARINOS = 2;
         int[][] submarinos = new int[NUMERO_SUBMARINOS][COORDENADAS_SUBMARINOS];
 
-        inicializaTabuleiro(tabuleiro);
+        inicializarTabuleiro(tabuleiro);
         ImpressoraTabuleiro.imprimirMsgInicial();
         posicionarSubmarinos(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
@@ -36,6 +36,20 @@ public class BatalhaNavalApplication {
             ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
         } while (verificarFimDoJogo(acertos, NUMERO_SUBMARINOS, acabouJogo) == false);
     }
+
+    // public static int[][] posicionarSubmarinosManual(int[][] submarinos){
+    // for (int numeroSubmarino = 0; numeroSubmarino < submarinos.length;
+    // numeroSubmarino++) {
+    // for (int j = 0; j < submarinos[i].length; j++) {
+    // System.out.println("Digite a linha e a coluna do submarino " + (i + 1));
+    // submarinos[i][j] = LeitorInput.lerInteiro("Linha: ", "Entrada invalida! ", 0,
+    // NUMERO_LINHAS);
+    // submarinos[i][j] = LeitorInput.lerInteiro("Coluna: ", "Entrada invalida! ",
+    // 0, NUMERO_COLUNAS);
+    // }
+    // }
+    // return submarinos;
+    // }
 
     public static int[][] posicionarSubmarinos(int[][] submarinos) {
         Random numeroAleatorio = new Random();
@@ -122,7 +136,7 @@ public class BatalhaNavalApplication {
         }
     }
 
-    public static void inicializaTabuleiro(int[][] tabuleiro) {
+    public static void inicializarTabuleiro(int[][] tabuleiro) {
         for (int linha = 0; linha < tabuleiro.length; linha++)
             for (int coluna = 0; coluna < tabuleiro.length; coluna++)
                 tabuleiro[linha][coluna] = 0;
