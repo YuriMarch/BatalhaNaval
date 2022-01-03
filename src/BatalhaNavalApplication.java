@@ -17,7 +17,7 @@ public class BatalhaNavalApplication {
         int acertos = 0;
         int erros = 0;
         int[] tiro = new int[2];
-        int NUMERO_SUBMARINOS = 5;
+        int NUMERO_SUBMARINOS = 10;
         int COORDENADAS_SUBMARINOS = 2;
         int[][] submarinos = new int[NUMERO_SUBMARINOS][COORDENADAS_SUBMARINOS];
 
