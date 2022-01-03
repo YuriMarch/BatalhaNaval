@@ -17,13 +17,14 @@ public class BatalhaNavalApplication {
         int acertos = 0;
         int erros = 0;
         int[] tiro = new int[2];
-        int NUMERO_SUBMARINOS = 10;
+        int NUMERO_SUBMARINOS = 5;
         int COORDENADAS_SUBMARINOS = 2;
         int[][] submarinos = new int[NUMERO_SUBMARINOS][COORDENADAS_SUBMARINOS];
 
         inicializarTabuleiro(tabuleiro);
         ImpressoraTabuleiro.imprimirMsgInicial();
-        posicionarSubmarinos(submarinos);
+        // posicionarSubmarinos(submarinos);
+        posicionarSubmarinosManual(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
         ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
 
@@ -37,19 +38,28 @@ public class BatalhaNavalApplication {
         } while (verificarFimDoJogo(acertos, NUMERO_SUBMARINOS, acabouJogo) == false);
     }
 
-    // public static int[][] posicionarSubmarinosManual(int[][] submarinos){
-    // for (int numeroSubmarino = 0; numeroSubmarino < submarinos.length;
-    // numeroSubmarino++) {
-    // for (int j = 0; j < submarinos[i].length; j++) {
-    // System.out.println("Digite a linha e a coluna do submarino " + (i + 1));
-    // submarinos[i][j] = LeitorInput.lerInteiro("Linha: ", "Entrada invalida! ", 0,
-    // NUMERO_LINHAS);
-    // submarinos[i][j] = LeitorInput.lerInteiro("Coluna: ", "Entrada invalida! ",
-    // 0, NUMERO_COLUNAS);
-    // }
-    // }
-    // return submarinos;
-    // }
+    public static int[][] posicionarSubmarinosManual(int[][] submarinos) {
+        String errorMsg = "Entrada inválida. ";
+
+        for (int numeroSubmarino = 0; numeroSubmarino < submarinos.length; numeroSubmarino++) {
+            String inputLinhaMsg = "Digite a linha do submarino " + (numeroSubmarino + 1) + " (0 a "
+                    + (NUMERO_LINHAS - 1) + "): ";
+            String inputColunaMsg = "Digite a linha do submarino " + (numeroSubmarino + 1) + " (0 a "
+                    + (NUMERO_COLUNAS - 1) + "): ";
+            submarinos[numeroSubmarino][0] = LeitorInput.lerInteiroStatic(inputLinhaMsg, errorMsg, 0,
+                    NUMERO_LINHAS - 1);
+            submarinos[numeroSubmarino][1] = LeitorInput.lerInteiroStatic(inputColunaMsg, errorMsg,
+                    0, NUMERO_COLUNAS - 1);
+
+            // Print das coordenadas dos submarinos para fazer testes
+            System.out.println(
+                    "Submarino " + (numeroSubmarino + 1) + " posicionado na linha " + submarinos[numeroSubmarino][0]
+                            + " e coluna "
+                            + submarinos[numeroSubmarino][1]);
+        }
+
+        return submarinos;
+    }
 
     public static int[][] posicionarSubmarinos(int[][] submarinos) {
         Random numeroAleatorio = new Random();
