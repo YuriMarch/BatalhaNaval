@@ -165,3 +165,4 @@ public class BatalhaNavalApplication {
 // - Criar classe para o jogador e o computador
 // - Criar metodo de dar tiro aleatoriamente para o computador
 // - Verificar se a funcao verificarFimDoJogo ta funcionado direito
+// - Tentar consertar o erro do scanner.close()
