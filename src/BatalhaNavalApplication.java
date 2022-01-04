@@ -17,13 +17,14 @@ public class BatalhaNavalApplication {
         int acertos = 0;
         int erros = 0;
         int[] tiro = new int[2];
-        int NUMERO_SUBMARINOS = 10;
+        int NUMERO_SUBMARINOS = 4;
         int COORDENADAS_SUBMARINOS = 2;
         int[][] submarinos = new int[NUMERO_SUBMARINOS][COORDENADAS_SUBMARINOS];
 
         inicializarTabuleiro(tabuleiro);
         ImpressoraTabuleiro.imprimirMsgInicial();
-        // posicionarSubmarinos(submarinos);
+        ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
+        // posicionarSubmarinosAleatoriamente(submarinos);
         posicionarSubmarinosManual(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
         ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
@@ -46,9 +47,9 @@ public class BatalhaNavalApplication {
                     + (NUMERO_LINHAS - 1) + "): ";
             String inputColunaMsg = "Digite a linha do submarino " + (numeroSubmarino + 1) + " (0 a "
                     + (NUMERO_COLUNAS - 1) + "): ";
-            submarinos[numeroSubmarino][0] = LeitorInput.lerInteiroStatic(inputLinhaMsg, errorMsg, 0,
+            submarinos[numeroSubmarino][0] = LeitorInput.lerInteiro(inputLinhaMsg, errorMsg, 0,
                     NUMERO_LINHAS - 1);
-            submarinos[numeroSubmarino][1] = LeitorInput.lerInteiroStatic(inputColunaMsg, errorMsg,
+            submarinos[numeroSubmarino][1] = LeitorInput.lerInteiro(inputColunaMsg, errorMsg,
                     0, NUMERO_COLUNAS - 1);
 
             // Print das coordenadas dos submarinos para fazer testes
@@ -61,7 +62,7 @@ public class BatalhaNavalApplication {
         return submarinos;
     }
 
-    public static int[][] posicionarSubmarinos(int[][] submarinos) {
+    public static int[][] posicionarSubmarinosAleatoriamente(int[][] submarinos) {
         Random numeroAleatorio = new Random();
 
         for (int numeroSubmarino = 0; numeroSubmarino < submarinos.length; numeroSubmarino++) {
@@ -91,13 +92,12 @@ public class BatalhaNavalApplication {
     }
 
     public static void darTiro(int[] tiro, int tentativas) {
-        LeitorInput leitorInput = new LeitorInput();
         String inputLinhaMsg = "Digite a linha do tiro (0 a " + (NUMERO_LINHAS - 1) + "): ";
         String inputColunaMsg = "Digite a coluna do tiro (0 a " + (NUMERO_COLUNAS - 1) + "): ";
         String errorMsg = "Entrada inválida. ";
 
-        tiro[0] = leitorInput.lerInteiro(inputLinhaMsg, errorMsg, 0, NUMERO_LINHAS - 1);
-        tiro[1] = leitorInput.lerInteiro(inputColunaMsg, errorMsg, 0, NUMERO_COLUNAS - 1);
+        tiro[0] = LeitorInput.lerInteiro(inputLinhaMsg, errorMsg, 0, NUMERO_LINHAS - 1);
+        tiro[1] = LeitorInput.lerInteiro(inputColunaMsg, errorMsg, 0, NUMERO_COLUNAS - 1);
 
         tentativas++; // contador de tentativas nao esta funcionando
     }
@@ -160,3 +160,8 @@ public class BatalhaNavalApplication {
         return acabouJogo;
     }
 }
+
+// TODO: - consertar os contadores acertos, erros, tentativas
+// - Criar classe para o jogador e o computador
+// - Criar metodo de dar tiro aleatoriamente para o computador
+// - Verificar se a funcao verificarFimDoJogo ta funcionado direito
