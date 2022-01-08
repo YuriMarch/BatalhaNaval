@@ -24,15 +24,15 @@ public class BatalhaNavalApplication {
         inicializarTabuleiro(tabuleiro);
         ImpressoraTabuleiro.imprimirMsgInicial();
         ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
-        // posicionarSubmarinosAleatoriamente(submarinos);
-        posicionarSubmarinosManual(submarinos);
+        posicionarSubmarinosAleatoriamente(submarinos);
+        // posicionarSubmarinosManual(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
         ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
 
         // Loop principal do jogo. Nao acaba nunca pois o contador de acertos nao esta
         // funcionando
         do {
-            darTiro(tiro, tentativas);
+            darTiroManual(tiro, tentativas);
             verificarTiro(tiro, submarinos, acertos, erros);
             alterarTabuleiro(tiro, submarinos, tabuleiro, acertos, erros);
             ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
@@ -91,7 +91,7 @@ public class BatalhaNavalApplication {
         return submarinos;
     }
 
-    public static void darTiro(int[] tiro, int tentativas) {
+    public static void darTiroManual(int[] tiro, int tentativas) {
         String inputLinhaMsg = "Digite a linha do tiro (0 a " + (NUMERO_LINHAS - 1) + "): ";
         String inputColunaMsg = "Digite a coluna do tiro (0 a " + (NUMERO_COLUNAS - 1) + "): ";
         String errorMsg = "Entrada inválida. ";
@@ -99,6 +99,14 @@ public class BatalhaNavalApplication {
         tiro[0] = LeitorInput.lerInteiro(inputLinhaMsg, errorMsg, 0, NUMERO_LINHAS - 1);
         tiro[1] = LeitorInput.lerInteiro(inputColunaMsg, errorMsg, 0, NUMERO_COLUNAS - 1);
 
+        tentativas++; // contador de tentativas nao esta funcionando
+    }
+
+    public static void darTiroAleatoriamente(int[] tiro, int tentativas) {
+        Random numeroAleatorio = new Random();
+
+        tiro[0] = numeroAleatorio.nextInt(NUMERO_LINHAS);
+        tiro[1] = numeroAleatorio.nextInt(NUMERO_COLUNAS);
         tentativas++; // contador de tentativas nao esta funcionando
     }
 
@@ -161,8 +169,9 @@ public class BatalhaNavalApplication {
     }
 }
 
-// TODO: - consertar os contadores acertos, erros, tentativas
+// TODO:
+// - Consertar os contadores acertos, erros, tentativas
 // - Criar classe para o jogador e o computador
-// - Criar metodo de dar tiro aleatoriamente para o computador
+// - Criar metodo de dar tiro aleatoriamente para o computador --> FEITO
 // - Verificar se a funcao verificarFimDoJogo ta funcionado direito
 // - Tentar consertar o erro do scanner.close()
