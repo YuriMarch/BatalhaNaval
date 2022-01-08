@@ -17,7 +17,7 @@ public class LeitorInput {
       strInput = scanner.nextLine();
       try {
         numero = Integer.parseInt(strInput);
-        if (numero >= limiteMin && numero < limiteMax) {
+        if (numero >= limiteMin && numero <= limiteMax) {
           inputValido = true;
         } else {
           System.out.print(errorMsg);
