@@ -36,7 +36,7 @@ public class BatalhaNavalApplication {
         do {
             darTiroManual(tiro, tentativas);
             verificarTiro(tiro, submarinos);
-            alterarTabuleiro(tiro, submarinos, tabuleiro, acertos, erros);
+            alterarTabuleiro(tiro, submarinos, tabuleiro, acertou);
             ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
         } while (verificarFimDoJogo(acertos, NUMERO_SUBMARINOS, acabouJogo) == false);
     }
@@ -116,23 +116,23 @@ public class BatalhaNavalApplication {
 
     public static void imprimirMsgAcertos(int[] tiro, int acertos) {
         System.out.printf("Você acertou o tiro nas coordenadas (%d, %d)!\n", tiro[0], tiro[1]);
-        // if (acertos == 1) {
-        // System.out.printf("Você acertou %d submarino!\n", acertos);
-        // } else {
-        // System.out.printf("Você acertou %d submarinos!\n", acertos);
-        // }
+        if (acertos == 1) {
+            System.out.printf("Você acertou %d submarino!\n", BatalhaNavalApplication.acertos);
+        } else {
+            System.out.printf("Você acertou %d submarinos!\n", BatalhaNavalApplication.acertos);
+        }
 
-        System.out.printf("Você acertou %s submarino(s)!\n", acertos);
+        // System.out.printf("Você acertou %s submarino(s)!\n", acertos);
     }
 
     public static void imprimirMsgErros(int[] tiro, int erros) {
         System.out.printf("Você errou o tiro nas coordenadas (%d, %d)!\n", tiro[0], tiro[1]);
-        // if (erros == 1) {
-        // System.out.printf("Você errou %d vez!\n", erros);
-        // } else {
-        // System.out.printf("Você errou %d vezes!\n", erros);
-        // }
-        System.out.printf("Você errou %s vez(es)!\n", erros);
+        if (erros == 1) {
+            System.out.printf("Você errou %d vez!\n", BatalhaNavalApplication.erros);
+        } else {
+            System.out.printf("Você errou %d vezes!\n", BatalhaNavalApplication.erros);
+        }
+        // System.out.printf("Você errou %s vez(es)!\n", erros);
     }
 
     public static boolean verificarTiro(int[] tiro, int[][] submarinos) {
@@ -148,8 +148,8 @@ public class BatalhaNavalApplication {
         return false;
     }
 
-    public static void alterarTabuleiro(int[] tiro, int[][] submarinos, int[][] tabuleiro, int acertos, int erros) {
-        if (acertou) {
+    public static void alterarTabuleiro(int[] tiro, int[][] submarinos, int[][] tabuleiro, boolean acertou) {
+        if (verificarTiro(tiro, submarinos) == true) {
             tabuleiro[tiro[0]][tiro[1]] = 1; // 1 significa que o tiro acertou um submarino
         } else {
             tabuleiro[tiro[0]][tiro[1]] = -1; // -1 significa que o tiro acertou a agua
