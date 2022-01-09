@@ -8,8 +8,10 @@ public class BatalhaNavalApplication {
     public final static int NUMERO_LINHAS = 10;
     public final static int NUMERO_COLUNAS = 10;
     public static int[][] tabuleiro = new int[NUMERO_LINHAS][NUMERO_COLUNAS];
-    public static int tentativas = 0;
-    public static int acertos = 0;
+    public static int tentativas = -1; // -1 ao inves de zero pois a variavel acertou esta incrementando o valor no
+                                       // inicio do jogo
+    public static int acertos = -1; // -1 ao inves de zero pois a variavel acertou esta incrementando o valor no
+                                    // inicio do jogo
     public static int erros = 0;
     private static boolean acertou = false;
 
@@ -18,10 +20,12 @@ public class BatalhaNavalApplication {
 
         boolean acabouJogo = false;
         int[] tiro = new int[2];
-        int NUMERO_SUBMARINOS = 10;
+        int NUMERO_SUBMARINOS = 2;
         int COORDENADAS_SUBMARINOS = 2;
         int[][] submarinos = new int[NUMERO_SUBMARINOS][COORDENADAS_SUBMARINOS];
         acertou = verificarTiro(tiro, submarinos);
+        System.out.printf("Acertos: %s \n", acertos);
+        System.out.printf("Erros: %s \n", erros);
 
         inicializarTabuleiro(tabuleiro);
         ImpressoraTabuleiro.imprimirMsgInicial();
@@ -34,9 +38,21 @@ public class BatalhaNavalApplication {
         // Loop principal do jogo. Nao acaba nunca pois o contador de acertos nao esta
         // funcionando
         do {
+            System.out.println("Comeco do darTiroManual");
+            System.out.printf("Acertos: %s \n", acertos);
+            System.out.printf("Erros: %s \n", erros);
             darTiroManual(tiro, tentativas);
+            System.out.println("Fim do darTiroManual");
+            System.out.printf("Acertos: %s \n", acertos);
+            System.out.printf("Erros: %s \n", erros);
             verificarTiro(tiro, submarinos);
+            System.out.println("Fim do verificarTiro");
+            System.out.printf("Acertos: %s \n", acertos);
+            System.out.printf("Erros: %s \n", erros);
             alterarTabuleiro(tiro, submarinos, tabuleiro, acertou);
+            System.out.println("Fim do alterarTabuleiro");
+            System.out.printf("Acertos: %s \n", acertos);
+            System.out.printf("Erros: %s \n", erros);
             ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
         } while (verificarFimDoJogo(acertos, NUMERO_SUBMARINOS, acabouJogo) == false);
     }
@@ -100,7 +116,7 @@ public class BatalhaNavalApplication {
         tiro[0] = LeitorInput.lerInteiro(inputLinhaMsg, errorMsg, 0, NUMERO_LINHAS - 1);
         tiro[1] = LeitorInput.lerInteiro(inputColunaMsg, errorMsg, 0, NUMERO_COLUNAS - 1);
 
-        tentativas++; // contador de tentativas nao esta funcionando
+        tentativas++;
     }
 
     public static void darTiroAleatoriamente(int[] tiro, int tentativas) {
@@ -108,11 +124,8 @@ public class BatalhaNavalApplication {
 
         tiro[0] = numeroAleatorio.nextInt(NUMERO_LINHAS);
         tiro[1] = numeroAleatorio.nextInt(NUMERO_COLUNAS);
-        tentativas++; // contador de tentativas nao esta funcionando
+        tentativas++;
     }
-
-    // TODO: O if das funcoes imprimirMsgAcertos e imprimirMsgErros nao esta
-    // funcionando direito. Contador de erros e acertos nao estao functionando
 
     public static void imprimirMsgAcertos(int[] tiro, int acertos) {
         System.out.printf("Você acertou o tiro nas coordenadas (%d, %d)!\n", tiro[0], tiro[1]);
@@ -121,8 +134,6 @@ public class BatalhaNavalApplication {
         } else {
             System.out.printf("Você acertou %d submarinos!\n", BatalhaNavalApplication.acertos);
         }
-
-        // System.out.printf("Você acertou %s submarino(s)!\n", acertos);
     }
 
     public static void imprimirMsgErros(int[] tiro, int erros) {
@@ -132,7 +143,6 @@ public class BatalhaNavalApplication {
         } else {
             System.out.printf("Você errou %d vezes!\n", BatalhaNavalApplication.erros);
         }
-        // System.out.printf("Você errou %s vez(es)!\n", erros);
     }
 
     public static boolean verificarTiro(int[] tiro, int[][] submarinos) {
@@ -149,7 +159,7 @@ public class BatalhaNavalApplication {
     }
 
     public static void alterarTabuleiro(int[] tiro, int[][] submarinos, int[][] tabuleiro, boolean acertou) {
-        if (verificarTiro(tiro, submarinos) == true) {
+        if (acertou) {
             tabuleiro[tiro[0]][tiro[1]] = 1; // 1 significa que o tiro acertou um submarino
         } else {
             tabuleiro[tiro[0]][tiro[1]] = -1; // -1 significa que o tiro acertou a agua
@@ -172,7 +182,7 @@ public class BatalhaNavalApplication {
 }
 
 // TODO:
-// - Consertar os contadores acertos, erros, tentativas
+// - Consertar os contadores acertos, erros, tentativas --> FEITO
 // - Criar classe para o jogador e o computador
 // - Criar metodo de dar tiro aleatoriamente para o computador --> FEITO
 // - Verificar se a funcao verificarFimDoJogo ta funcionado direito
