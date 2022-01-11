@@ -35,24 +35,10 @@ public class BatalhaNavalApplication {
         System.out.println("Submarinos posicionados com sucesso!");
         ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
 
-        // Loop principal do jogo. Nao acaba nunca pois o contador de acertos nao esta
-        // funcionando
         do {
-            System.out.println("Comeco do darTiroManual");
-            System.out.printf("Acertos: %s \n", acertos);
-            System.out.printf("Erros: %s \n", erros);
             darTiroManual(tiro, tentativas);
-            System.out.println("Fim do darTiroManual");
-            System.out.printf("Acertos: %s \n", acertos);
-            System.out.printf("Erros: %s \n", erros);
             verificarTiro(tiro, submarinos);
-            System.out.println("Fim do verificarTiro");
-            System.out.printf("Acertos: %s \n", acertos);
-            System.out.printf("Erros: %s \n", erros);
             alterarTabuleiro(tiro, submarinos, tabuleiro, acertou);
-            System.out.println("Fim do alterarTabuleiro");
-            System.out.printf("Acertos: %s \n", acertos);
-            System.out.printf("Erros: %s \n", erros);
             ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
         } while (verificarFimDoJogo(acertos, NUMERO_SUBMARINOS, acabouJogo) == false);
     }
@@ -185,5 +171,5 @@ public class BatalhaNavalApplication {
 // - Consertar os contadores acertos, erros, tentativas --> FEITO
 // - Criar classe para o jogador e o computador
 // - Criar metodo de dar tiro aleatoriamente para o computador --> FEITO
-// - Verificar se a funcao verificarFimDoJogo ta funcionado direito
+// - Verificar se a funcao verificarFimDoJogo ta funcionado direito -->FEITO
 // - Tentar consertar o erro do scanner.close()
