@@ -2,15 +2,9 @@ package letscode.impressora;
 
 public class ImpressoraTabuleiro {
 
-  final static String MENSAGEM_INICIAL = "Tabuleiro iniciado...";
-
   private static final char AGUA = ' ';
   private static final char TIRO_CERTO = '*';
   private static final char TIRO_ERRADO = '-';
-
-  public static void imprimirMsgInicial() {
-    System.out.println(MENSAGEM_INICIAL);
-  }
 
   public static void imprimirCabecalho() {
     System.out.println("---------------------------------------------");

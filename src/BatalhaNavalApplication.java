@@ -1,5 +1,6 @@
 import java.util.Random;
 
+import letscode.impressora.ImpressoraMensagens;
 import letscode.impressora.ImpressoraTabuleiro;
 import letscode.leitor.LeitorInput;
 
@@ -26,7 +27,7 @@ public class BatalhaNavalApplication {
         System.out.printf("Erros: %s \n", erros);
 
         inicializarTabuleiro(tabuleiro);
-        ImpressoraTabuleiro.imprimirMsgInicial();
+        ImpressoraMensagens.imprimirMsgInicial();
         posicionarSubmarinosAleatoriamente(submarinos);
         // posicionarSubmarinosManual(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
@@ -123,35 +124,17 @@ public class BatalhaNavalApplication {
         tentativas++;
     }
 
-    public static void imprimirMsgAcertos(int[] tiro, int acertos) {
-        System.out.printf("Você acertou o tiro nas coordenadas (%d, %d)!\n", tiro[0], tiro[1]);
-        if (acertos == 1) {
-            System.out.printf("Você acertou %d submarino!\n", BatalhaNavalApplication.acertos);
-        } else {
-            System.out.printf("Você acertou %d submarinos!\n", BatalhaNavalApplication.acertos);
-        }
-    }
-
-    public static void imprimirMsgErros(int[] tiro, int erros) {
-        System.out.printf("Você errou o tiro nas coordenadas (%d, %d)!\n", tiro[0], tiro[1]);
-        if (erros == 1) {
-            System.out.printf("Você errou %d vez!\n", BatalhaNavalApplication.erros);
-        } else {
-            System.out.printf("Você errou %d vezes!\n", BatalhaNavalApplication.erros);
-        }
-    }
-
     public static boolean verificarTiro(int[] tiro, int[][] submarinos) {
         for (int submarino = 0; submarino < submarinos.length; submarino++) {
             if (tiro[0] == submarinos[submarino][0] && tiro[1] == submarinos[submarino][1]) {
                 BatalhaNavalApplication.acertos++;
-                imprimirMsgAcertos(tiro, BatalhaNavalApplication.acertos);
+                ImpressoraMensagens.imprimirMsgAcertos(tiro, acertos);
                 acertou = true;
                 return true;
             }
         }
         BatalhaNavalApplication.erros++;
-        imprimirMsgErros(tiro, BatalhaNavalApplication.erros);
+        ImpressoraMensagens.imprimirMsgErros(tiro, erros);
         acertou = false;
         return false;
     }
@@ -174,7 +157,7 @@ public class BatalhaNavalApplication {
 
     public static boolean verificarFimDoJogo(int acertos, int NUMERO_SUBMARINOS, boolean acabouJogo) {
         if (acertos == NUMERO_SUBMARINOS) {
-            System.out.println("Parabens! Voce acertou todos os submarinos!");
+            System.out.println("Parabéns! Você acertou todos os submarinos!");
             acabouJogo = true;
         }
         return acabouJogo;
