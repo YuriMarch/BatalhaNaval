@@ -8,10 +8,9 @@ public class BatalhaNavalApplication {
     public final static int NUMERO_LINHAS = 10;
     public final static int NUMERO_COLUNAS = 10;
     public static int[][] tabuleiro = new int[NUMERO_LINHAS][NUMERO_COLUNAS];
-    public static int tentativas = -1; // -1 ao inves de zero pois a variavel acertou esta incrementando o valor no
-                                       // inicio do jogo
-    public static int acertos = -1; // -1 ao inves de zero pois a variavel acertou esta incrementando o valor no
-                                    // inicio do jogo
+    public static int tentativas = 0;
+    public static int acertos = 0; // -1 ao inves de zero pois a variavel acertou esta incrementando o valor no
+                                   // inicio do jogo
     public static int erros = 0;
     private static boolean acertou = false;
 
@@ -23,24 +22,35 @@ public class BatalhaNavalApplication {
         int NUMERO_SUBMARINOS = 2;
         int COORDENADAS_SUBMARINOS = 2;
         int[][] submarinos = new int[NUMERO_SUBMARINOS][COORDENADAS_SUBMARINOS];
-        acertou = verificarTiro(tiro, submarinos);
         System.out.printf("Acertos: %s \n", acertos);
         System.out.printf("Erros: %s \n", erros);
 
         inicializarTabuleiro(tabuleiro);
         ImpressoraTabuleiro.imprimirMsgInicial();
-        ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
         posicionarSubmarinosAleatoriamente(submarinos);
         // posicionarSubmarinosManual(submarinos);
         System.out.println("Submarinos posicionados com sucesso!");
         ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
 
         do {
+            System.out.println("Inicio darTiroManual");
+            System.out.println("Acertos: " + BatalhaNavalApplication.acertos);
+            System.out.println("Erros: " + BatalhaNavalApplication.erros);
+            System.out.println("Tentativas: " + BatalhaNavalApplication.tentativas);
             darTiroManual(tiro, tentativas);
+            System.out.println("Inicio verificarTiro");
+            System.out.println("Acertos: " + BatalhaNavalApplication.acertos);
+            System.out.println("Erros: " + BatalhaNavalApplication.erros);
+            System.out.println("Tentativas: " + BatalhaNavalApplication.tentativas);
             verificarTiro(tiro, submarinos);
+            System.out.println("Inicio alterarTabuleiro");
+            System.out.println("Acertos: " + BatalhaNavalApplication.acertos);
+            System.out.println("Erros: " + BatalhaNavalApplication.erros);
+            System.out.println("Tentativas: " + BatalhaNavalApplication.tentativas);
+            System.out.println(acertou);
             alterarTabuleiro(tiro, submarinos, tabuleiro, acertou);
             ImpressoraTabuleiro.mostrarTabuleiro(tabuleiro);
-        } while (verificarFimDoJogo(acertos, NUMERO_SUBMARINOS, acabouJogo) == false);
+        } while (verificarFimDoJogo(BatalhaNavalApplication.acertos, NUMERO_SUBMARINOS, acabouJogo) == false);
     }
 
     public static int[][] posicionarSubmarinosManual(int[][] submarinos) {
@@ -135,19 +145,23 @@ public class BatalhaNavalApplication {
         for (int submarino = 0; submarino < submarinos.length; submarino++) {
             if (tiro[0] == submarinos[submarino][0] && tiro[1] == submarinos[submarino][1]) {
                 BatalhaNavalApplication.acertos++;
-                imprimirMsgAcertos(tiro, acertos);
+                imprimirMsgAcertos(tiro, BatalhaNavalApplication.acertos);
+                acertou = true;
                 return true;
             }
         }
         BatalhaNavalApplication.erros++;
-        imprimirMsgErros(tiro, erros);
+        imprimirMsgErros(tiro, BatalhaNavalApplication.erros);
+        acertou = false;
         return false;
     }
 
     public static void alterarTabuleiro(int[] tiro, int[][] submarinos, int[][] tabuleiro, boolean acertou) {
         if (acertou) {
+            System.out.println("alterarTabuleiro: acertou!");
             tabuleiro[tiro[0]][tiro[1]] = 1; // 1 significa que o tiro acertou um submarino
         } else {
+            System.out.println("alterarTabuleiro: errou!");
             tabuleiro[tiro[0]][tiro[1]] = -1; // -1 significa que o tiro acertou a agua
         }
     }
